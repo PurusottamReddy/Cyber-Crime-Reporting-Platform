@@ -9,6 +9,7 @@ const ReportCC = () => {
     title: '',
     description: '',
     location: '',
+    date: '',
     related_info: '',
     anonymous: false,
   });
@@ -55,6 +56,7 @@ const ReportCC = () => {
     data.append('category', formData.category);
     data.append('title', formData.title);
     data.append('description', formData.description);
+    data.append('date', formData.date);
     data.append('location', formData.location);
     data.append('related_info', formData.related_info);
     evidence.forEach((file) => {
@@ -216,7 +218,7 @@ const ReportCC = () => {
 
           <div className="mb-6">
             <label htmlFor="location" className="block text-cyan-400 font-semibold mb-2">
-              Location (e.g., city, state, country)
+              Location 
             </label>
             <input
               type="text"
@@ -229,10 +231,24 @@ const ReportCC = () => {
               placeholder="Enter location"
             />
           </div>
+          <div className="mb-6">
+            <label htmlFor="date" className="block text-cyan-400 font-semibold mb-2">
+              Date
+            </label>
+            <input
+              type="date"
+              id="date"
+              name="date"
+              value={formData.date}
+              onChange={handleChange}
+              className="w-full p-3 border border-cyan-400/30 rounded-lg bg-gray-900/50 text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/50 transition-all"
+              required
+            />
+          </div>
 
           <div className="mb-6">
             <label htmlFor="related_info" className="block text-cyan-400 font-semibold mb-2">
-              Related Information (e.g., email, phone, website, IP address)
+              Related Entities
             </label>
             <input
               type="text"
@@ -242,7 +258,7 @@ const ReportCC = () => {
               onChange={handleChange}
               className="w-full p-3 border border-cyan-400/30 rounded-lg bg-gray-900/50 text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/50 transition-all"
               required
-              placeholder="Enter related information"
+              placeholder="Enter related information(email, phone, website, IP address)"
             />
           </div>
 

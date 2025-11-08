@@ -106,14 +106,12 @@ const Home = () => {
         {/* Hero Section */}
         <section className="min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8">
           {/* CyberLens Logo/Title */}
-          <div className="text-center mb-12 animate-fade-in">
+          <div className="text-center mb-0 animate-fade-in">
             <h1 className="text-6xl sm:text-7xl md:text-8xl font-bold mb-4">
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 animate-gradient">
                 CyberLens
               </span>
-              <span className="block text-cyan-400 text-2xl sm:text-3xl mt-2 font-light tracking-widest animate-pulse">
-                 CYBER INTELLIGENCE PLATFORM
-              </span>
+
             </h1>
           </div>
 

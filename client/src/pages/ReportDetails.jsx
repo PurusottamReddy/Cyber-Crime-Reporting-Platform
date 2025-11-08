@@ -77,6 +77,11 @@ const Report = () => {
             </div>
 
             <div className="border-b border-cyan-400/20 pb-4">
+              <p className="text-cyan-400 font-semibold text-lg mb-1">Date:</p>
+              <p className="text-white text-xl">{new Date(report.date).toLocaleDateString()}</p>
+            </div>
+
+            <div className="border-b border-cyan-400/20 pb-4">
               <p className="text-cyan-400 font-semibold text-lg mb-1">Status:</p>
               <span className={`inline-block px-4 py-2 rounded-full text-sm font-semibold ${
                 report.status === 'Open' 

@@ -3,10 +3,10 @@ import { cloudinary } from "../configs/cloudinary.js";
 
 export const createCrimeReport = async (req, res) => {
   try {
-    const { anonymous, category, title, description, location, related_info } = req.body;
+    const { anonymous, category, title, description, location, related_info, date } = req.body;
 
     //  Basic field validation
-    if (!category || !title || !description || !location || !related_info) {
+    if (!category || !title || !description || !location || !related_info || !date) {
       return res.json({ success: false, message: "All fields are required" });
     }
 
@@ -35,6 +35,7 @@ export const createCrimeReport = async (req, res) => {
       category,
       title,
       description,
+      date,
       location,
       related_info,
       evidence: uploadedFiles, // array of URLs
