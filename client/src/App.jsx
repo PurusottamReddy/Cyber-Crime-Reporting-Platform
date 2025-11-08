@@ -13,7 +13,7 @@ import Footer from './components/Footer'
 function App() {
 
   return (
-   <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors">
+   <div className="min-h-screen">
   <Toaster />
       <Navbar/>
       <Routes>

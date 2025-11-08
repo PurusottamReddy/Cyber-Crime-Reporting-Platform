@@ -1,13 +1,8 @@
-
-
-
 import React, { useContext, useState } from 'react';
 import { UserContext } from '../context/AppContext';
 
-
 const ReportCC = () => {
   const { user, axios, toast, navigate } = useContext(UserContext);
-
 
   const [formData, setFormData] = useState({
     category: '',
@@ -29,7 +24,25 @@ const ReportCC = () => {
   };
 
   const handleFileChange = (e) => {
-    setEvidence((prevEvidence) => [...prevEvidence, ...Array.from(e.target.files)]);
+    const files = Array.from(e.target.files);
+    const newValidFiles = [];
+    const MAX_FILE_SIZE = 5 * 1024 * 1024;
+    const MAX_FILES = 5;
+
+    if (evidence.length + files.length > MAX_FILES) {
+      toast.error(`You can only upload a maximum of ${MAX_FILES} files.`);
+      return;
+    }
+
+    files.forEach(file => {
+      if (file.size > MAX_FILE_SIZE) {
+        toast.error(`File ${file.name} is too large. Maximum size is 5MB.`);
+      } else {
+        newValidFiles.push(file);
+      }
+    });
+
+    setEvidence((prevEvidence) => [...prevEvidence, ...newValidFiles]);
   };
 
   const handleSubmit = async (e) => {
@@ -68,146 +81,210 @@ const ReportCC = () => {
   };
 
   return (
-    <div className="container mx-auto p-4 min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors">
-      <h1 className="text-3xl font-bold text-center mb-6 text-gray-800 dark:text-white">Report Cyber Crime</h1>
-      <form onSubmit={handleSubmit} className="max-w-lg mx-auto bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md border border-gray-200 dark:border-gray-700">
-          <div className="mb-4 flex items-center">
-          <input
-            type="checkbox"
-            id="anonymous"
-            name="anonymous"
-            checked={formData.anonymous}
-            onChange={handleChange}
-            className="mr-2 leading-tight"
-          />
-          <label htmlFor="anonymous" className="text-sm text-gray-700 dark:text-gray-300">
-            Report Anonymously
-          </label>
-        </div>
+    <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 py-12 px-4">
+      <div className="absolute inset-0 opacity-20">
+        <div
+          className="h-full w-full"
+          style={{
+            backgroundImage: `
+              linear-gradient(rgba(64, 224, 208, 0.1) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(64, 224, 208, 0.1) 1px, transparent 1px)
+            `,
+            backgroundSize: '50px 50px',
+            animation: 'gridMove 20s linear infinite'
+          }}
+        />
+      </div>
 
-        <div className="mb-4">
-          <label htmlFor="category" className="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">
-            Category
-          </label>
-          <select
-            id="category"
-            name="category"
-            value={formData.category}
-            onChange={handleChange}
-            className="shadow appearance-none border border-gray-300 dark:border-gray-600 rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
-            required
+      <div className="relative z-10 max-w-2xl mx-auto">
+        <h1 className="text-4xl sm:text-5xl font-bold text-center mb-8 animate-fade-in">
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400">
+            Report Cyber Crime
+          </span>
+        </h1>
+
+        <form onSubmit={handleSubmit} className="bg-gray-800/50 backdrop-blur-sm border border-cyan-400/30 rounded-xl p-8 shadow-[0_0_30px_rgba(64,224,208,0.2)] animate-slide-up">
+          <div className="mb-6 flex items-center">
+            <input
+              type="checkbox"
+              id="anonymous"
+              name="anonymous"
+              checked={formData.anonymous}
+              onChange={handleChange}
+              className="mr-3 w-4 h-4 accent-cyan-400"
+            />
+            <label htmlFor="anonymous" className="text-cyan-300">
+              Report Anonymously
+            </label>
+          </div>
+
+          <div className="mb-6 relative">
+            <label htmlFor="category" className="block text-cyan-400 font-semibold mb-2">
+              Category
+            </label>
+            <div className="relative">
+              <select
+                id="category"
+                name="category"
+                value={formData.category}
+                onChange={handleChange}
+                className="w-full p-3 pr-10 border border-cyan-400/30 rounded-lg bg-gray-900/50 text-white focus:outline-none focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/50 transition-all appearance-none cursor-pointer hover:border-cyan-400/50 hover:bg-gray-900/70 hover:shadow-[0_0_10px_rgba(64,224,208,0.2)]"
+                required
+                style={{
+                  backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath fill='%2340E0D0' d='M8 11L3 6h10z'/%3E%3C/svg%3E")`,
+                  backgroundRepeat: 'no-repeat',
+                  backgroundPosition: 'right 1rem center',
+                  backgroundSize: '16px'
+                }}
+              >
+                <option value="" disabled hidden className="bg-gray-900 text-gray-400">
+                  Select a Category 
+                </option>
+                <option value="Financial Fraud" className="bg-gray-900 text-white hover:bg-cyan-400/20">
+                  Financial Fraud
+                </option>
+                <option value="Identity Theft" className="bg-gray-900 text-white hover:bg-cyan-400/20">
+                  Identity Theft
+                </option>
+                <option value="Deepfake" className="bg-gray-900 text-white hover:bg-cyan-400/20">
+                  Deepfake
+                </option>
+                <option value="Hacking" className="bg-gray-900 text-white hover:bg-cyan-400/20">
+                  Hacking
+                </option>
+                <option value="Online Harassment" className="bg-gray-900 text-white hover:bg-cyan-400/20">
+                  Online Harassment
+                </option>
+                <option value="Cyberstalking" className="bg-gray-900 text-white hover:bg-cyan-400/20">
+                  Cyberstalking
+                </option>
+                <option value="CSAM" className="bg-gray-900 text-white hover:bg-cyan-400/20">
+                  CSAM
+                </option>
+                <option value="Phishing" className="bg-gray-900 text-white hover:bg-cyan-400/20">
+                  Phishing
+                </option>
+                <option value="Intellectual Property Theft" className="bg-gray-900 text-white hover:bg-cyan-400/20">
+                  Intellectual Property Theft
+                </option>
+                <option value="Cyberterrorism" className="bg-gray-900 text-white hover:bg-cyan-400/20">
+                  Cyberterrorism
+                </option>
+                <option value="Other" className="bg-gray-900 text-white hover:bg-cyan-400/20">
+                  Other
+                </option>
+              </select>
+              {formData.category && (
+                <div className="absolute right-12 top-1/2 transform -translate-y-1/2 pointer-events-none">
+                  <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse shadow-[0_0_8px_rgba(64,224,208,0.8)]"></div>
+                </div>
+              )}
+            </div>
+          </div>
+
+          <div className="mb-6">
+            <label htmlFor="title" className="block text-cyan-400 font-semibold mb-2">
+              Title
+            </label>
+            <input
+              type="text"
+              id="title"
+              name="title"
+              value={formData.title}
+              onChange={handleChange}
+              className="w-full p-3 border border-cyan-400/30 rounded-lg bg-gray-900/50 text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/50 transition-all"
+              required
+              placeholder="Enter report title"
+            />
+          </div>
+
+          <div className="mb-6">
+            <label htmlFor="description" className="block text-cyan-400 font-semibold mb-2">
+              Description
+            </label>
+            <textarea
+              id="description"
+              name="description"
+              value={formData.description}
+              onChange={handleChange}
+              rows="5"
+              className="w-full p-3 border border-cyan-400/30 rounded-lg bg-gray-900/50 text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/50 transition-all resize-none"
+              required
+              placeholder="Describe the incident in detail"
+            ></textarea>
+          </div>
+
+          <div className="mb-6">
+            <label htmlFor="location" className="block text-cyan-400 font-semibold mb-2">
+              Location (e.g., city, state, country)
+            </label>
+            <input
+              type="text"
+              id="location"
+              name="location"
+              value={formData.location}
+              onChange={handleChange}
+              className="w-full p-3 border border-cyan-400/30 rounded-lg bg-gray-900/50 text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/50 transition-all"
+              required
+              placeholder="Enter location"
+            />
+          </div>
+
+          <div className="mb-6">
+            <label htmlFor="related_info" className="block text-cyan-400 font-semibold mb-2">
+              Related Information (e.g., email, phone, website, IP address)
+            </label>
+            <input
+              type="text"
+              id="related_info"
+              name="related_info"
+              value={formData.related_info}
+              onChange={handleChange}
+              className="w-full p-3 border border-cyan-400/30 rounded-lg bg-gray-900/50 text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/50 transition-all"
+              required
+              placeholder="Enter related information"
+            />
+          </div>
+
+          <div className="mb-6">
+            <label htmlFor="evidence" className="block text-cyan-400 font-semibold mb-2">
+              Evidence (screenshots, documents, etc.)
+              {evidence.length > 0 && (
+                <span className="ml-2 text-purple-400 text-sm">({evidence.length} files selected)</span>
+              )}
+            </label>
+            <input
+              type="file"
+              id="evidence"
+              name="evidence"
+              onChange={handleFileChange}
+              multiple
+              className="w-full p-3 border border-cyan-400/30 rounded-lg bg-gray-900/50 text-white file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-cyan-400/20 file:text-cyan-400 hover:file:bg-cyan-400/30 focus:outline-none focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/50 transition-all"
+            />
+          </div>
+
+          <div className="mb-6 flex items-center">
+            <input
+              type="checkbox"
+              id="terms"
+              name="terms"
+              className="mr-3 w-4 h-4 accent-cyan-400"
+              required
+            />
+            <label htmlFor="terms" className="text-cyan-300 text-sm">
+              I agree that the information provided is true and accurate
+            </label>
+          </div>
+
+          <button
+            type="submit"
+            className="w-full p-3 bg-gradient-to-r from-cyan-400 to-purple-400 text-white font-bold rounded-lg hover:from-cyan-500 hover:to-purple-500 transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(64,224,208,0.5)] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+            disabled={loading}
           >
-            <option value="" disabled hidden>Select a Category &#9660; </option>
-            <option value="Financial Fraud">Financial Fraud</option>
-            <option value="Identity Theft">Identity Theft</option>
-            <option value="Deepfake">Deepfake</option>
-            <option value="Hacking">Hacking</option>
-            <option value="Online Harassment">Online Harassment</option>
-            <option value="Cyberstalking">Cyberstalking</option>
-            <option value="CSAM">CSAM</option>
-            <option value="Phishing">Phishing</option>
-            <option value="Intellectual Property Theft">Intellectual Property Theft</option>
-            <option value="Cyberterrorism">Cyberterrorism</option>
-            <option value="Other">Other</option>
-          </select>
-        </div>
-
-        <div className="mb-4">
-          <label htmlFor="title" className="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">
-            Title
-          </label>
-          <input
-            type="text"
-            id="title"
-            name="title"
-            value={formData.title}
-            onChange={handleChange}
-            className="shadow appearance-none border border-gray-300 dark:border-gray-600 rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
-            required
-          />
-        </div>
-
-        <div className="mb-4">
-          <label htmlFor="description" className="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">
-            Description
-          </label>
-          <textarea
-            id="description"
-            name="description"
-            value={formData.description}
-            onChange={handleChange}
-            rows="5"
-            className="shadow appearance-none border border-gray-300 dark:border-gray-600 rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
-            required
-          ></textarea>
-        </div>
-
-        <div className="mb-4">
-          <label htmlFor="location" className="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">
-            Location (e.g., city, state, country)
-          </label>
-          <input
-            type="text"
-            id="location"
-            name="location"
-            value={formData.location}
-            onChange={handleChange}
-            className="shadow appearance-none border border-gray-300 dark:border-gray-600 rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
-            required
-          />
-        </div>
-
-        <div className="mb-4">
-          <label htmlFor="related_info" className="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">
-            Related Information (e.g., email, phone, website, IP address)
-          </label>
-          <input
-            type="text"
-            id="related_info"
-            name="related_info"
-            value={formData.related_info}
-            onChange={handleChange}
-            className="shadow appearance-none border border-gray-300 dark:border-gray-600 rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
-            required
-          />
-        </div>
-
-        <div className="mb-4">
-          <label htmlFor="evidence" className="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">
-            Evidence (screenshots, documents, etc.)
-            {evidence.length > 0 && (
-              <span className="ml-2 text-gray-500 dark:text-gray-400 text-sm">({evidence.length} files selected)</span>
-            )}
-          </label>
-          <input
-            type="file"
-            id="evidence"
-            name="evidence"
-            onChange={handleFileChange}
-            multiple
-            className="shadow appearance-none border border-gray-300 dark:border-gray-600 rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 dark:file:bg-gray-600 dark:file:text-gray-200"
-          />
-        </div>
-     
-     <div className="mb-4 flex items-center">
-      <input
-      type="checkbox"
-      id="terms"
-      name="terms"
-      className="mr-2 leading-tight"
-      required
-      />
-      <label htmlFor="terms" className="text-sm text-gray-700 dark:text-gray-300 ml-1">I agree that the information provided is true and accurate</label>
-     </div>
-      
-        <button
-          type="submit"
-          className="bg-blue-500 dark:bg-blue-600 hover:bg-blue-700 dark:hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-          disabled={loading}
-        >
-          {loading ? 'Submitting...' : 'Submit Report'}
-        </button>
-      </form>
+            {loading ? 'Submitting...' : 'Submit Report'}
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

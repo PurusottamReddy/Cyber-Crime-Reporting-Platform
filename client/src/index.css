@@ -11,11 +11,144 @@
         font-family: var(--font-display);
     }
     body {
-        background-color: #fcfbfc;
         overflow-x: hidden;
-        transition: background-color 0.3s ease;
+        transition: background-color 0.2s ease, color 0.2s ease;
     }
-    html.dark body {
-        background-color: #111827;
+}
+
+@layer utilities {
+    /* Animations */
+    @keyframes gridMove {
+        0% {
+            transform: translate(0, 0);
+        }
+        100% {
+            transform: translate(50px, 50px);
+        }
+    }
+
+    @keyframes fade-in {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes slide-up {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes float {
+        0%, 100% {
+            transform: translateY(0px);
+        }
+        50% {
+            transform: translateY(-20px);
+        }
+    }
+
+    @keyframes spin-slow {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    @keyframes gradient {
+        0%, 100% {
+            background-position: 0% 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+    }
+
+    @keyframes shimmer {
+        0% {
+            transform: translateX(-100%);
+        }
+        100% {
+            transform: translateX(100%);
+        }
+    }
+
+    @keyframes bounce-slow {
+        0%, 100% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-10px);
+        }
+    }
+
+    .animate-fade-in {
+        animation: fade-in 1s ease-out;
+    }
+
+    .animate-slide-up {
+        animation: slide-up 1s ease-out;
+    }
+
+    .animate-slide-up-delay {
+        animation: slide-up 1s ease-out 0.3s both;
+    }
+
+    .animate-float {
+        animation: float 3s ease-in-out infinite;
+    }
+
+    .animate-spin-slow {
+        animation: spin-slow linear infinite;
+    }
+
+    .animate-gradient {
+        background-size: 200% 200%;
+        animation: gradient 3s ease infinite;
+    }
+
+    .animate-shimmer {
+        animation: shimmer 2s infinite;
+    }
+
+    .animate-bounce-slow {
+        animation: bounce-slow 2s ease-in-out infinite;
+    }
+
+    /* Custom Select Dropdown Styling */
+    select {
+        cursor: pointer;
+    }
+
+    select option {
+        background-color: #1f2937;
+        color: #ffffff;
+        padding: 12px;
+        border: none;
+    }
+
+    select option:hover {
+        background-color: rgba(64, 224, 208, 0.2);
+    }
+
+    select option:checked {
+        background-color: rgba(64, 224, 208, 0.3);
+        color: #40e0d0;
+    }
+
+    select:focus option:checked {
+        background: linear-gradient(to right, rgba(64, 224, 208, 0.3), rgba(168, 85, 247, 0.3));
     }
 }

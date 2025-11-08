@@ -61,75 +61,113 @@ const AllReports = () => {
   };
 
   if (loading) {
-    return <div className="text-center mt-8 text-gray-700 dark:text-gray-300">Loading reports...</div>;
+    return (
+      <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 flex items-center justify-center">
+        <div className="text-center text-cyan-400 text-xl">Loading reports...</div>
+      </div>
+    );
   }
 
   if (error) {
-    return <div className="text-center mt-8 text-red-500 dark:text-red-400">{error}</div>;
+    return (
+      <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 flex items-center justify-center">
+        <div className="text-center text-red-400 text-xl">{error}</div>
+      </div>
+    );
   }
 
   return (
-    <div className="container mx-auto p-4 min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors">
-      {user.role === 'user' ? (
-        <h1 className="text-3xl font-bold text-center mb-6 text-gray-800 dark:text-white"> Your Crime Reports</h1>
-      ) : (
-        <h1 className="text-3xl font-bold text-center mb-6 text-gray-800 dark:text-white">All Crime Reports</h1>
-      )}
-      {/* {user.role==='authority' || user.role==='admin' && <h1 className="text-3xl font-bold text-center mb-6">All Crime Reports</h1>} (another way of writing) */}
-      {reports.length === 0 ? (
-        <p className="text-center text-gray-600 dark:text-gray-400">No crime reports found.</p>
-      ) : (
-        <div className="overflow-x-auto">
-          <table className="min-w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-md">
-            <thead>
-              <tr className="bg-gray-100 dark:bg-gray-700">
-                <th className="py-2 px-4 border-b border-gray-200 dark:border-gray-600 text-left text-gray-700 dark:text-gray-300">ID</th>
-                <th className="py-2 px-4 border-b border-gray-200 dark:border-gray-600 text-left text-gray-700 dark:text-gray-300">Title</th>
-                <th className="py-2 px-4 border-b border-gray-200 dark:border-gray-600 text-left text-gray-700 dark:text-gray-300">Category</th>
-                <th className="py-2 px-4 border-b border-gray-200 dark:border-gray-600 text-left text-gray-700 dark:text-gray-300">Location</th>
-                <th className="py-2 px-4 border-b border-gray-200 dark:border-gray-600 text-left text-gray-700 dark:text-gray-300">Date</th>
-                <th className="py-2 px-4 border-b border-gray-200 dark:border-gray-600 text-left text-gray-700 dark:text-gray-300">Status</th>
-                <th className="py-2 px-4 border-b border-gray-200 dark:border-gray-600 text-left text-gray-700 dark:text-gray-300">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {reports.map((report) => (
-                <tr key={report._id} className="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
-                  <td className="py-2 px-4 border-b border-gray-200 dark:border-gray-600 text-gray-700 dark:text-gray-300">{report._id}</td>
-                  <td className="py-2 px-4 border-b border-gray-200 dark:border-gray-600 text-gray-700 dark:text-gray-300">{report.title}</td>
-                  <td className="py-2 px-4 border-b border-gray-200 dark:border-gray-600 text-gray-700 dark:text-gray-300">{report.category}</td>
-                  <td className="py-2 px-4 border-b border-gray-200 dark:border-gray-600 text-gray-700 dark:text-gray-300">{report.location}</td>
-                  <td className="py-2 px-4 border-b border-gray-200 dark:border-gray-600 text-gray-700 dark:text-gray-300">{new Date(report.date).toLocaleDateString()}</td>
-                  <td className="py-2 px-4 border-b border-gray-200 dark:border-gray-600">
-                    {(user.role === 'authority' || user.role === 'admin') ? (
-                      <select
-                        value={report.status}
-                        onChange={(e) => handleStatusChange(report._id, e.target.value)}
-                        className="p-1 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300"
-                      >
-                        <option value="Open">Open</option>
-                        <option value="Closed">Closed</option>
-                      </select>
-                    ) : (
-                      <span className="text-gray-700 dark:text-gray-300">{report.status}</span>
-                    )}
-                  </td>
-                  <td className="py-2 px-4 border-b border-gray-200 dark:border-gray-600">
-                    <Link to={`/report/${report._id}`} className="text-blue-500 dark:text-blue-400 hover:underline mr-2">
-                      View
-                    </Link>
-                    <button
-                      onClick={() => handleDeleteReport(report._id)}
-                      className="text-red-500 dark:text-red-400 hover:underline">
-                      Delete
-                    </button>
-                  </td>
+    <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 py-12 px-4">
+      <div className="absolute inset-0 opacity-20">
+        <div
+          className="h-full w-full"
+          style={{
+            backgroundImage: `
+              linear-gradient(rgba(64, 224, 208, 0.1) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(64, 224, 208, 0.1) 1px, transparent 1px)
+            `,
+            backgroundSize: '50px 50px',
+            animation: 'gridMove 20s linear infinite'
+          }}
+        />
+      </div>
+
+      <div className="relative z-10 max-w-7xl mx-auto">
+        <h1 className="text-4xl sm:text-5xl font-bold text-center mb-12 animate-fade-in">
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400">
+            {user.role === 'user' ? 'Your Crime Reports' : 'All Crime Reports'}
+          </span>
+        </h1>
+
+        {reports.length === 0 ? (
+          <div className="text-center text-cyan-300 text-xl py-20">
+            No crime reports found.
+          </div>
+        ) : (
+          <div className="overflow-x-auto bg-gray-800/50 backdrop-blur-sm border border-cyan-400/30 rounded-xl shadow-[0_0_30px_rgba(64,224,208,0.2)] animate-slide-up">
+            <table className="min-w-full">
+              <thead>
+                <tr className="bg-gray-900/50 border-b border-cyan-400/30">
+                  <th className="py-4 px-6 text-left text-cyan-400 font-semibold">ID</th>
+                  <th className="py-4 px-6 text-left text-cyan-400 font-semibold">Title</th>
+                  <th className="py-4 px-6 text-left text-cyan-400 font-semibold">Category</th>
+                  <th className="py-4 px-6 text-left text-cyan-400 font-semibold">Location</th>
+                  <th className="py-4 px-6 text-left text-cyan-400 font-semibold">Date</th>
+                  <th className="py-4 px-6 text-left text-cyan-400 font-semibold">Status</th>
+                  <th className="py-4 px-6 text-left text-cyan-400 font-semibold">Actions</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
+              </thead>
+              <tbody>
+                {reports.map((report) => (
+                  <tr key={report._id} className="border-b border-cyan-400/20 hover:bg-cyan-400/5 transition-colors">
+                    <td className="py-4 px-6 text-gray-300 text-sm">{report._id.slice(-8)}</td>
+                    <td className="py-4 px-6 text-white font-medium">{report.title}</td>
+                    <td className="py-4 px-6 text-cyan-300">{report.category}</td>
+                    <td className="py-4 px-6 text-gray-300">{report.location}</td>
+                    <td className="py-4 px-6 text-gray-400">{new Date(report.date).toLocaleDateString()}</td>
+                    <td className="py-4 px-6">
+                      {(user.role === 'authority' || user.role === 'admin') ? (
+                        <select
+                          value={report.status}
+                          onChange={(e) => handleStatusChange(report._id, e.target.value)}
+                          className="p-2 border border-cyan-400/30 rounded bg-gray-900/50 text-white focus:outline-none focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/50 transition-all"
+                        >
+                          <option value="Open">Open</option>
+                          <option value="Closed">Closed</option>
+                        </select>
+                      ) : (
+                        <span className={`px-3 py-1 rounded-full text-sm font-semibold ${
+                          report.status === 'Open' 
+                            ? 'bg-green-400/20 text-green-400 border border-green-400/30' 
+                            : 'bg-gray-400/20 text-gray-400 border border-gray-400/30'
+                        }`}>
+                          {report.status}
+                        </span>
+                      )}
+                    </td>
+                    <td className="py-4 px-6">
+                      <div className="flex gap-3">
+                        <Link 
+                          to={`/report/${report._id}`} 
+                          className="text-cyan-400 hover:text-cyan-300 hover:underline transition-colors"
+                        >
+                          View
+                        </Link>
+                        <button
+                          onClick={() => handleDeleteReport(report._id)}
+                          className="text-red-400 hover:text-red-300 hover:underline transition-colors"
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

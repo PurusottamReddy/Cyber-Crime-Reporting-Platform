@@ -2,17 +2,13 @@ import {useState} from "react"
 import {useContext} from "react"
 import {UserContext} from "../context/AppContext"
 
-
-
 const SignUp = () => {
-
     const {setUser,axios,toast,navigate}=useContext(UserContext)
 
     const [name,setName]=useState("")
     const[email,setEmail]=useState("")  
     const[password,setPassword]=useState("")  
     const[role,setRole]=useState("user")  
-
 
     const submitHandler = async (e)=>{
         try{
@@ -34,56 +30,91 @@ const SignUp = () => {
         }
     }
 
-
     return (
-        <div className="p-5 min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors">
-         
-            <h1 className="text-3xl font-bold text-center mb-5 text-gray-800 dark:text-white"> Signup </h1>
-            <form onSubmit={submitHandler} className="max-w-md mx-auto ">
-                <div className="py-5 px-2 bg-gray-100 dark:bg-gray-800 rounded-md px-10 border border-gray-200 dark:border-gray-700">
-                <label htmlFor="name" className="block mt-2 mb-1 text-gray-700 dark:text-gray-300">Name</label>
-                <input
-                    type="text"
-                    value={name}
-                    placeholder="Enter your name"
-                    onChange={(e) => setName(e.target.value)}
-                    required
-                    className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
+        <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 flex items-center justify-center px-4 py-12">
+            <div className="absolute inset-0 opacity-20">
+                <div
+                    className="h-full w-full"
+                    style={{
+                        backgroundImage: `
+                            linear-gradient(rgba(64, 224, 208, 0.1) 1px, transparent 1px),
+                            linear-gradient(90deg, rgba(64, 224, 208, 0.1) 1px, transparent 1px)
+                        `,
+                        backgroundSize: '50px 50px',
+                        animation: 'gridMove 20s linear infinite'
+                    }}
                 />
-                <label htmlFor="email" className="block mt-2 mb-1 text-gray-700 dark:text-gray-300">Email</label>
-                <input
-                type="email"
-                value={email}
-                placeholder="Enter your email"
-                onChange={(e)=>setEmail(e.target.value)}
-                required
-                className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
-                />
-                <label htmlFor="password" className="block mt-2 mb-1 text-gray-700 dark:text-gray-300">Password</label>
-                <input
-                type="password"
-                value={password}
-                placeholder="Enter your password"
-                onChange={(e)=>setPassword(e.target.value)}
-                required
-                className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
-                />
-                <label htmlFor="role" className="block mt-2 mb-1 text-gray-700 dark:text-gray-300">Role</label>
-                <select
-                value={role}
-                onChange={(e)=>setRole(e.target.value)}
-                className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
-                >
-                    <option value="user">User</option>
-                    <option value="authority">Authority</option>
-                    {/* <option value="admin">Admin</option> */}
-                </select>
+            </div>
 
-                <button className="w-full p-2 bg-blue-500 dark:bg-blue-600 hover:bg-blue-600 dark:hover:bg-blue-700 text-white rounded-md mt-5 transition-colors" type="submit">SIGNUP</button>
+            <div className="relative z-10 w-full max-w-md">
+                <div className="text-center mb-8 animate-fade-in">
+                    <h1 className="text-4xl sm:text-5xl font-bold mb-2">
+                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400">
+                            Signup
+                        </span>
+                    </h1>
+                    <p className="text-cyan-200 text-sm">Create your CyberLens account</p>
                 </div>
-            </form>
-          
+
+                <form onSubmit={submitHandler} className="bg-gray-800/50 backdrop-blur-sm border border-cyan-400/30 rounded-xl p-8 shadow-[0_0_30px_rgba(64,224,208,0.2)] animate-slide-up">
+                    <div className="mb-4">
+                        <label htmlFor="name" className="block text-sm font-medium text-cyan-400 mb-2">Name</label>
+                        <input
+                            type="text"
+                            value={name}
+                            placeholder="Enter your name"
+                            onChange={(e) => setName(e.target.value)}
+                            required
+                            className="w-full p-3 border border-cyan-400/30 rounded-lg bg-gray-900/50 text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/50 transition-all"
+                        />
+                    </div>
+
+                    <div className="mb-4">
+                        <label htmlFor="email" className="block text-sm font-medium text-cyan-400 mb-2">Email</label>
+                        <input
+                            type="email"
+                            value={email}
+                            placeholder="Enter your email"
+                            onChange={(e)=>setEmail(e.target.value)}
+                            required
+                            className="w-full p-3 border border-cyan-400/30 rounded-lg bg-gray-900/50 text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/50 transition-all"
+                        />
+                    </div>
+
+                    <div className="mb-4">
+                        <label htmlFor="password" className="block text-sm font-medium text-cyan-400 mb-2">Password</label>
+                        <input
+                            type="password"
+                            value={password}
+                            placeholder="Enter your password"
+                            onChange={(e)=>setPassword(e.target.value)}
+                            required
+                            className="w-full p-3 border border-cyan-400/30 rounded-lg bg-gray-900/50 text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/50 transition-all"
+                        />
+                    </div>
+
+                    <div className="mb-6">
+                        <label htmlFor="role" className="block text-sm font-medium text-cyan-400 mb-2">Role</label>
+                        <select
+                            value={role}
+                            onChange={(e)=>setRole(e.target.value)}
+                            className="w-full p-3 border border-cyan-400/30 rounded-lg bg-gray-900/50 text-white focus:outline-none focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/50 transition-all"
+                        >
+                            <option value="user">User</option>
+                            <option value="authority">Authority</option>
+                        </select>
+                    </div>
+
+                    <button 
+                        className="w-full p-3 bg-gradient-to-r from-cyan-400 to-purple-400 text-white font-bold rounded-lg hover:from-cyan-500 hover:to-purple-500 transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(64,224,208,0.5)]" 
+                        type="submit"
+                    >
+                        SIGNUP
+                    </button>
+                </form>
+            </div>
         </div>
     )
 }
+
 export default SignUp
