@@ -8,6 +8,7 @@ const Report = () => {
   const { toast, axios } = useContext(UserContext)
 
   useEffect(() => {
+    window.scrollTo(0, 0); // Scroll to top on component mount
     const getReportDetails = async () => {
       try {
         const res = await axios.get(`/api/crime/get-crime-report/${id}`)
@@ -72,7 +73,7 @@ const Report = () => {
             </div>
 
             <div className="border-b border-cyan-400/20 pb-4">
-              <p className="text-cyan-400 font-semibold text-lg mb-1">Location:</p>
+              <p className="text-cyan-400 font-semibold text-lg mb-1">Place of Incident:</p>
               <p className="text-white text-xl">{report.location}</p>
             </div>
 

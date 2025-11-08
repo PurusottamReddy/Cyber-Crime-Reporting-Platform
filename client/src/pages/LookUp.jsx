@@ -15,6 +15,7 @@ const LookUp = () => {
     }
     setLoading(true)
     setHasSearched(true)
+    setResult([]) // Clear previous results
     try {
       const response = await axios.post("/api/crime/fraud-lookup", { related_info: search })
       const data = response.data
@@ -91,9 +92,10 @@ const LookUp = () => {
               >
                 <h2 className="text-2xl font-bold text-cyan-400 mb-4">{item.title}</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-300">
-                  <p><span className="text-cyan-400 font-semibold">User:</span> {item.user?.name || "Anonymous"}</p>
+                   <p><span className="text-cyan-400 font-semibold">Related Entities:</span> {item.related_info}</p>
+                  {/* <p><span className="text-cyan-400 font-semibold">User:</span> {item.user?.name || "Anonymous"}</p> */}
                   <p><span className="text-cyan-400 font-semibold">Category:</span> {item.category}</p>
-                  <p><span className="text-cyan-400 font-semibold">Location:</span> {item.location}</p>
+                  <p><span className="text-cyan-400 font-semibold">Place of Incident:</span> {item.location}</p>
                   <p><span className="text-cyan-400 font-semibold">Date:</span> {new Date(item.createdAt).toLocaleDateString()}</p>
                   <p className="md:col-span-2"><span className="text-cyan-400 font-semibold">Description:</span> {item.description}</p>
                   <p><span className="text-cyan-400 font-semibold">Status:</span> 

@@ -111,7 +111,7 @@ const AllReports = () => {
                   <th className="py-4 px-6 text-left text-cyan-400 font-semibold">ID</th>
                   <th className="py-4 px-6 text-left text-cyan-400 font-semibold">Title</th>
                   <th className="py-4 px-6 text-left text-cyan-400 font-semibold">Category</th>
-                  <th className="py-4 px-6 text-left text-cyan-400 font-semibold">Location</th>
+                  <th className="py-4 px-6 text-left text-cyan-400 font-semibold">Place of Incident</th>
                   <th className="py-4 px-6 text-left text-cyan-400 font-semibold">Date</th>
                   <th className="py-4 px-6 text-left text-cyan-400 font-semibold">Status</th>
                   <th className="py-4 px-6 text-left text-cyan-400 font-semibold">Actions</th>

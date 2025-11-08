@@ -126,7 +126,7 @@ export const fraudLookup = async (req,res)=>{
         return res.json({success:false,message:"Please provide email, phone number, or website"})
     }
     try{
-        const crimes = await Crime.find({related_info:{$regex:related_info,$options:"i"}})
+        const crimes = await Crime.find({related_info:{$regex:related_info,$options:"i"}}).populate("user")
         if(crimes.length === 0){
             return res.json({success:false,message:"No crimes found with the provided related information"})
         }

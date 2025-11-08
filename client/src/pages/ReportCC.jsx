@@ -226,8 +226,8 @@ const ReportCC = () => {
 
           <div className="mb-6">
             <label htmlFor="location" className="block text-cyan-400 font-semibold mb-2">
-              Location 
-            </label>
+                  Place of Incident
+                </label>
             <input
               type="text"
               id="location"
@@ -236,7 +236,7 @@ const ReportCC = () => {
               onChange={handleChange}
               className="w-full p-3 border border-cyan-400/30 rounded-lg bg-gray-900/50 text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/50 transition-all"
               required
-              placeholder="Enter location"
+              placeholder="Enter place of incident(online,physical location) "
             />
           </div>
           <div className="mb-6">
@@ -266,7 +266,7 @@ const ReportCC = () => {
               onChange={handleChange}
               className="w-full p-3 border border-cyan-400/30 rounded-lg bg-gray-900/50 text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/50 transition-all"
               required
-              placeholder="Enter related information(email, phone, website, IP address)"
+              placeholder="Enter related information(email, phone, website)"
             />
           </div>
 
