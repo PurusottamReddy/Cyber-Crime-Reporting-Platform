@@ -10,7 +10,7 @@ import AllReports from './pages/AllReports'
 import LookUp from './pages/LookUp'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
-import { Analytics } from "@vercel/analytics/next"
+import { Analytics } from "@vercel/analytics/react"
 
 
 function App() {
