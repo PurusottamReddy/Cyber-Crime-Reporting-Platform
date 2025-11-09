@@ -106,7 +106,7 @@ const AllReports = () => {
       <div className="relative z-10 max-w-7xl mx-auto">
         <h1 className="text-4xl sm:text-5xl font-bold text-center mb-12 animate-fade-in">
           <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400">
-            {user.role === 'user' ? 'Your Crime Reports' : 'All Crime Reports'}
+            {user.role === 'user' ? 'My Crime Reports' : 'All Crime Reports'}
           </span>
         </h1>
 
