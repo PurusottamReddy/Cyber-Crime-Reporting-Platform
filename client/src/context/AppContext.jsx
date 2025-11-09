@@ -10,7 +10,10 @@ export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const navigate = useNavigate();
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(() => {
+    const storedUser = localStorage.getItem("user");
+    return storedUser ? JSON.parse(storedUser) : null;
+  });
   const [loading, setLoading] = useState(true);
 
   // Check login status once when app loads
@@ -33,12 +36,15 @@ export const UserProvider = ({ children }) => {
     checkAuth();
   }, []);
 
+
+
   useEffect(() => {
-    if (user) localStorage.setItem("user", JSON.stringify(user));
-    else localStorage.removeItem("user");
+    if (user) {
+      localStorage.setItem("user", JSON.stringify(user));
+    } else {
+      localStorage.removeItem("user");
+    }
   }, [user]);
-
-
 
   return (
     <UserContext.Provider value={{ user, setUser, axios, toast, navigate }}>
